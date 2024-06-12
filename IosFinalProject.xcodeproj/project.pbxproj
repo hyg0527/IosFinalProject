@@ -19,6 +19,8 @@
 		26D184C52C12AE6700B08028 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 26D184C42C12AE6700B08028 /* FirebaseStorage */; };
 		26D184C72C12AEFB00B08028 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D184C62C12AEFB00B08028 /* LoginViewController.swift */; };
 		26D184C92C12C05100B08028 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D184C82C12C05100B08028 /* SignUpViewController.swift */; };
+		26D184CB2C12FA6B00B08028 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D184CA2C12FA6B00B08028 /* PostViewController.swift */; };
+		26D184CD2C12FA7400B08028 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D184CC2C12FA7400B08028 /* MyPageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +35,8 @@
 		26D184BC2C12AE2600B08028 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		26D184C62C12AEFB00B08028 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		26D184C82C12C05100B08028 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		26D184CA2C12FA6B00B08028 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		26D184CC2C12FA7400B08028 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +79,8 @@
 				26D184A62C0DD80100B08028 /* HomeViewController.swift */,
 				26D184C62C12AEFB00B08028 /* LoginViewController.swift */,
 				26D184C82C12C05100B08028 /* SignUpViewController.swift */,
+				26D184CA2C12FA6B00B08028 /* PostViewController.swift */,
+				26D184CC2C12FA7400B08028 /* MyPageViewController.swift */,
 				26D184A82C0DD80100B08028 /* Main.storyboard */,
 				26D184AB2C0DD80300B08028 /* Assets.xcassets */,
 				26D184AD2C0DD80300B08028 /* LaunchScreen.storyboard */,
@@ -170,7 +176,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26D184CB2C12FA6B00B08028 /* PostViewController.swift in Sources */,
 				26D184C92C12C05100B08028 /* SignUpViewController.swift in Sources */,
+				26D184CD2C12FA7400B08028 /* MyPageViewController.swift in Sources */,
 				26D184A72C0DD80100B08028 /* HomeViewController.swift in Sources */,
 				26D184A32C0DD80100B08028 /* AppDelegate.swift in Sources */,
 				26D184A52C0DD80100B08028 /* SceneDelegate.swift in Sources */,
