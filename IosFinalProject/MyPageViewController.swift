@@ -22,8 +22,9 @@ class MyPageViewController: UIViewController {
         do {
             try Auth.auth().signOut()
             dismiss(animated: true)
-        } catch _ as NSError {
-            
+        } 
+        catch _ as NSError {
+            print("로그아웃 오류")
         }
     }
 }

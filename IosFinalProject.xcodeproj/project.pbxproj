@@ -21,6 +21,12 @@
 		26D184C92C12C05100B08028 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D184C82C12C05100B08028 /* SignUpViewController.swift */; };
 		26D184CB2C12FA6B00B08028 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D184CA2C12FA6B00B08028 /* PostViewController.swift */; };
 		26D184CD2C12FA7400B08028 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D184CC2C12FA7400B08028 /* MyPageViewController.swift */; };
+		26D184CF2C1AC43700B08028 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D184CE2C1AC43700B08028 /* Database.swift */; };
+		26D184D12C1AC52800B08028 /* DbFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D184D02C1AC52800B08028 /* DbFirebase.swift */; };
+		26D184D32C1B055A00B08028 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D184D22C1B055A00B08028 /* PostTableViewCell.swift */; };
+		26D184D52C1B138700B08028 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D184D42C1B138700B08028 /* Post.swift */; };
+		26D184D72C1BC85A00B08028 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D184D62C1BC85A00B08028 /* MapViewController.swift */; };
+		26D184D92C1BC87300B08028 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D184D82C1BC87300B08028 /* PostDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +43,12 @@
 		26D184C82C12C05100B08028 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		26D184CA2C12FA6B00B08028 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		26D184CC2C12FA7400B08028 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		26D184CE2C1AC43700B08028 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		26D184D02C1AC52800B08028 /* DbFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DbFirebase.swift; sourceTree = "<group>"; };
+		26D184D22C1B055A00B08028 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
+		26D184D42C1B138700B08028 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		26D184D62C1BC85A00B08028 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		26D184D82C1BC87300B08028 /* PostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +97,12 @@
 				26D184AB2C0DD80300B08028 /* Assets.xcassets */,
 				26D184AD2C0DD80300B08028 /* LaunchScreen.storyboard */,
 				26D184B02C0DD80300B08028 /* Info.plist */,
+				26D184CE2C1AC43700B08028 /* Database.swift */,
+				26D184D02C1AC52800B08028 /* DbFirebase.swift */,
+				26D184D22C1B055A00B08028 /* PostTableViewCell.swift */,
+				26D184D42C1B138700B08028 /* Post.swift */,
+				26D184D62C1BC85A00B08028 /* MapViewController.swift */,
+				26D184D82C1BC87300B08028 /* PostDetailViewController.swift */,
 			);
 			path = IosFinalProject;
 			sourceTree = "<group>";
@@ -177,11 +195,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				26D184CB2C12FA6B00B08028 /* PostViewController.swift in Sources */,
+				26D184D52C1B138700B08028 /* Post.swift in Sources */,
 				26D184C92C12C05100B08028 /* SignUpViewController.swift in Sources */,
+				26D184D12C1AC52800B08028 /* DbFirebase.swift in Sources */,
+				26D184D92C1BC87300B08028 /* PostDetailViewController.swift in Sources */,
 				26D184CD2C12FA7400B08028 /* MyPageViewController.swift in Sources */,
 				26D184A72C0DD80100B08028 /* HomeViewController.swift in Sources */,
 				26D184A32C0DD80100B08028 /* AppDelegate.swift in Sources */,
+				26D184D72C1BC85A00B08028 /* MapViewController.swift in Sources */,
 				26D184A52C0DD80100B08028 /* SceneDelegate.swift in Sources */,
+				26D184D32C1B055A00B08028 /* PostTableViewCell.swift in Sources */,
+				26D184CF2C1AC43700B08028 /* Database.swift in Sources */,
 				26D184C72C12AEFB00B08028 /* LoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
