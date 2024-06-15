@@ -91,11 +91,10 @@ extension HomeViewController: UITableViewDataSource {
         table.title.text = post.title
         table.comment.text = post.comment
         table.userName.text = "작성자: " + post.user
-        table.time.text = post.time
+        table.time.text = "작성일: " + post.time
         
         // 이미지를 설정하기 전에 이미지 뷰 초기화
         table.imageViewCell.image = nil
-        
         let imageName = post.title + " image"
         
         // 캐시에서 이미지를 가져오기
@@ -146,6 +145,22 @@ extension HomeViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.accessoryType = .none
-        performSegue(withIdentifier: "showDetail", sender: self)
+        performSegue(withIdentifier: "showDetail", sender: indexPath)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showDetail" {
+            if let indexPath = sender as? IndexPath {
+                let selectedPost = posts[indexPath.row]
+                
+                if let detailView = segue.destination as? PostDetailViewController {
+                    detailView.post = selectedPost
+                    // UITableViewCell에서 이미지 전달
+                    if let cell = tableView.cellForRow(at: indexPath) as? PostTableViewCell {
+                        detailView.postImage = cell.imageViewCell.image
+                    }
+                }
+            }
+        }
     }
 }

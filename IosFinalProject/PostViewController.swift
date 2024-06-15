@@ -13,6 +13,7 @@ import FirebaseStorage
 
 class PostViewController: UIViewController {
 
+    @IBOutlet weak var resLabel: UILabel!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var commentTextField: UITextField!
     @IBOutlet weak var imageViewPic: UIImageView!
@@ -23,6 +24,9 @@ class PostViewController: UIViewController {
     var currentUser = Auth.auth().currentUser?.displayName
     var dbFirebase: DbFirebase?
     
+    var departGeo: GeoPoint?
+    var arriveGeo: GeoPoint?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,19 +34,20 @@ class PostViewController: UIViewController {
         imageViewPic.addGestureRecognizer(imageTapGesture)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        resetPostView()
-    }
-    
     @IBAction func goToMapPressed(_ sender: UIButton) {
-//        performSegue(withIdentifier: "showMap", sender: self)
+        performSegue(withIdentifier: "showMap", sender: self)
+    }
+    
+    @IBAction func postPressed(_ sender: UIButton) {
         uploadPost()
         resetPostView()
     }
     
-    @IBAction func postPressed(_ sender: UIBarButtonItem) {
-        uploadPost()
-        resetPostView()
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showMap",
+           let destinationVC = segue.destination as? MapViewController {
+            destinationVC.coordDelegate = self
+        }
     }
     
     @objc func choosePic(sender: UITapGestureRecognizer) {
@@ -59,10 +64,14 @@ class PostViewController: UIViewController {
         present(imagePickerController, animated: true, completion: nil)
     }
     
-    func resetPostView() { // textField, imageView 리셋 함수
+    func resetPostView() { // 리셋 함수
         titleTextField.text = ""
         commentTextField.text = ""
         imageViewPic.image = nil
+        imageViewPic.backgroundColor = .systemMint
+        resLabel.text = ""
+        departGeo = nil
+        arriveGeo = nil
     }
     
     func uploadPost() { // firebase에 글 등록 함수
@@ -75,7 +84,7 @@ class PostViewController: UIViewController {
         dateFormatter.dateFormat = "yyyy.MM.dd a hh:mm"
         let time = dateFormatter.string(from: currentDate)
         
-        let post = Post(id: id, user: currentUser!, time: time, title: title, comment: comment)
+        let post = Post(id: id, user: currentUser!, time: time, title: title, comment: comment, depart: departGeo!, arrive: arriveGeo!)
         
 //        homeViewController.dbFirebase?.saveChange(key: String(id), object: Post.toDict(post: post), action: .add)
         location.document(time).setData(Post.toDict(post: post))
@@ -98,11 +107,26 @@ extension PostViewController: UINavigationControllerDelegate, UIImagePickerContr
         let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
         
         imageViewPic.image = image
+        imageViewPic.backgroundColor = .clear
         
         picker.dismiss(animated: true, completion: nil)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension PostViewController: SendCoordinate {
+    func convertCoordinate(coord:  CLLocationCoordinate2D) -> GeoPoint {
+        return GeoPoint(latitude: coord.latitude, longitude: coord.longitude)
+    }
+    
+    func sendCord(depart: CLLocationCoordinate2D, arrive: CLLocationCoordinate2D) {
+        resLabel.text = "경로 설정 완료"
+        
+        // GeoPoint를 CLLocationCoordinate2D로 변환
+        departGeo = convertCoordinate(coord: depart)
+        arriveGeo = convertCoordinate(coord: arrive)
     }
 }

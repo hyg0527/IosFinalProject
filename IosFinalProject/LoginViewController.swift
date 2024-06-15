@@ -22,12 +22,14 @@ class LoginViewController: UIViewController {
     
     @IBAction func loginClicked(_ sender: UIButton) {
         guard let email = idTextField.text, !email.isEmpty else {
-            print("이메일을 입력하세요.")
+            self.warningLabel.isHidden = false
+            self.warningLabel.text = "이메일을 입력하세요."
             return
         }
 
         guard let password = pwTextField.text, !password.isEmpty else {
-            print("비밀번호를 입력하세요.")
+            self.warningLabel.isHidden = false
+            self.warningLabel.text = "비밀번호를 입력하세요."
             return
         }
         

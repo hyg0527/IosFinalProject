@@ -32,6 +32,8 @@ class PostTableViewCell: UITableViewCell {
         userName.translatesAutoresizingMaskIntoConstraints = false
         time.translatesAutoresizingMaskIntoConstraints = false
         
+        title.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        
         NSLayoutConstraint.activate([
             title.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
