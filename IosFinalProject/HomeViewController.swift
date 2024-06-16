@@ -17,7 +17,6 @@ class HomeViewController: UIViewController {
     let db = Firestore.firestore().collection("posts")
     var posts: [Post] = []
     var imagePool: [String: UIImage] = [:]
-    var dbFirebase: DbFirebase?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,42 +24,10 @@ class HomeViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: "PostTableViewCell")
-        
-//        dbFirebase = DbFirebase(parentNotification: manageDatabase)
-//        dbFirebase?.setQuery(from: 1, to: 10000)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         getPosts()
-    }
-    
-    func manageDatabase(dict: [String: Any]?, dbAction: DbAction?) {
-        let post = Post.fromDict(dict: dict!)
-        if dbAction == .add {
-            let post = Post.fromDict(dict: dict!)
-            posts.append(post)
-        }
-        if dbAction == .modify {
-            for i in 0 ..< posts.count { // 삭제 대상을 찾아서 선택되 row의 시티정보 수정
-                if post.id == posts[i].id {
-//                    posts[i] = city
-//                    imagePool[city.imageName] = nil
-                    break
-                }
-            }
-//            if let indexPath = cityTableView.indexPathForSelectedRow {
-//                cities[indexPath.row] = city
-//            }
-        }
-        if dbAction == .delete {
-            for i in 0..<posts.count {
-                if post.id == posts[i].id {
-                    posts.remove(at: i)
-                    break
-                }
-            }
-        }
-        tableView.reloadData()
     }
     
     func getPosts() {
@@ -97,11 +64,11 @@ extension HomeViewController: UITableViewDataSource {
         table.imageViewCell.image = nil
         let imageName = post.title + " image"
         
-        // 캐시에서 이미지를 가져오기
+        // imagePool에서 이미지를 가져오기
         if let cachedImage = imagePool[imageName] {
             table.imageViewCell.image = cachedImage
         } else {
-            // 이미지 다운로드
+            // imagePool에 없으면 이미지 다운로드
             downloadImage(imageName: imageName) { [weak self] image in
                 guard let self = self else { return }
                 self.imagePool[imageName] = image
@@ -111,9 +78,31 @@ extension HomeViewController: UITableViewDataSource {
                     cell.imageViewCell.image = image
                 }
             }
+//            downloadImage(imageName: imageName) { [weak self] image in
+//                guard let self = self else { return }
+//                
+//                if let image = image { // 이미지 다운로드 성공 시, 셀에 이미지 설정
+//                    self.imagePool[imageName] = image
+//                    DispatchQueue.main.async {
+//                        if let visibleCells = tableView.visibleCells as? [PostTableViewCell], visibleCells.contains(table) {
+//                            table.imageViewCell.image = image
+//                        }
+//                    }
+//                } 
+//                else {
+                    // 이미지 다운로드 실패 시 처리 (예: 기본 이미지 설정 등)
+//                    DispatchQueue.main.async {
+//                        table.imageViewCell.image = UIImage(named: "default_image")
+//                    }
+//                }
+//            }
         }
         
         return table
+    }
+    
+    func addImageToPool(name: String, image: UIImage) {
+        imagePool[name] = image
     }
     
     func downloadImage(imageName: String, completion: @escaping (UIImage?) -> Void) {

@@ -9,7 +9,6 @@ import Foundation
 import FirebaseFirestore
 
 struct Post: Codable {
-    var id: Int
     var user: String
     var time: String
     var title: String
@@ -17,8 +16,7 @@ struct Post: Codable {
     var depart: GeoPoint
     var arrive: GeoPoint
     
-    init(id: Int, user: String, time: String, title: String, comment: String, depart: GeoPoint, arrive: GeoPoint) {
-        self.id = id
+    init(user: String, time: String, title: String, comment: String, depart: GeoPoint, arrive: GeoPoint) {
         self.user = user
         self.time = time
         self.title = title
@@ -32,7 +30,6 @@ extension Post {
     static func toDict(post: Post) -> [String: Any]{
         var dict = [String: Any]()
         
-        dict["id"] = post.id
         dict["user"] = post.user
         dict["time"] = post.time
         dict["title"] = post.title
@@ -44,15 +41,13 @@ extension Post {
     }
     
     static func fromDict(dict: [String: Any]) -> Post {
-        let id = dict["id"] as! Int
         let user = dict["user"] as! String
         let time = dict["time"] as! String
         let title = dict["title"] as! String
         let comment = dict["comment"] as! String
-        let sample = dict["sample"] as! Double
         let depart = dict["depart"] as! GeoPoint
         let arrive = dict["arrive"] as! GeoPoint
         
-        return Post(id: id, user: user, time: time, title: title, comment: comment, depart: depart, arrive: arrive)
+        return Post(user: user, time: time, title: title, comment: comment, depart: depart, arrive: arrive)
     }
 }

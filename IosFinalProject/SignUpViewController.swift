@@ -14,9 +14,17 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var idEmail: UITextField!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var pwConfirm: UITextField!
+    var isShowKeyboard = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let viewTapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(viewTapGesture)
+    }
+    
+    @objc func dismissKeyboard(sender: UITapGestureRecognizer) {
+        view.endEditing(true)
     }
 
     @IBAction func signUpClicked(_ sender: UIButton) {
@@ -59,5 +67,24 @@ class SignUpViewController: UIViewController {
                 }
             }
         }
+    }
+}
+
+extension SignUpViewController {
+    override func viewDidAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: OperationQueue.main) { notification in
+            if self.isShowKeyboard == false {
+                self.isShowKeyboard = true
+            }
+        }
+        
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: OperationQueue.main) { notification in
+            self.isShowKeyboard = false
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 }

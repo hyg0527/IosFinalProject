@@ -17,7 +17,7 @@ class PostDetailViewController: UIViewController {
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var mapView: MKMapView!
-    
+
     var post: Post?
     var postImage: UIImage?
     var depart2D: CLLocationCoordinate2D?
@@ -31,6 +31,7 @@ class PostDetailViewController: UIViewController {
 
         mapView.isUserInteractionEnabled = false
         mapView.delegate = self
+        
         mapInstance.resizeMap(map: mapView)
         loadPostData()
     }
@@ -67,49 +68,15 @@ class PostDetailViewController: UIViewController {
     func convertCoordTo2D(coord: GeoPoint) -> CLLocationCoordinate2D {
         return CLLocationCoordinate2D(latitude: coord.latitude, longitude: coord.longitude)
     }
-    
-//    func calculateRoute(from source: CLLocationCoordinate2D, to destination: CLLocationCoordinate2D) {
-//        let sourcePlacemark = MKPlacemark(coordinate: source)
-//        let destinationPlacemark = MKPlacemark(coordinate: destination)
-//        
-//        let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
-//        let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
-//        
-//        let directionRequest = MKDirections.Request()
-//        directionRequest.source = sourceMapItem
-//        directionRequest.destination = destinationMapItem
-//        directionRequest.transportType = .walking
-//        
-////        let directions = MKDirections(request: directionRequest)
-////                directions.calculate { [weak self] (response, error) in
-////                    guard let self = self else { return }
-////                    if let error = error {
-////                        print("Error calculating route: \(error)")
-////                        return
-////                    }
-////                    
-////                    guard let route = response?.routes.first else { return }
-////                    
-////                    DispatchQueue.main.async {
-////                        self.mapView.addOverlay(route.polyline, level: .aboveRoads)
-////                        
-////                        var rect = route.polyline.boundingMapRect
-////                        rect = self.mapView.mapRectThatFits(rect, edgePadding: UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20))
-////                        self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
-////                    }
-////                    
-////                    let distance = route.distance
-////                    distanceLabel.text = "거리: \(distance)m"
-////                }
-//    }
 }
 
 extension PostDetailViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if let routePolyline = overlay as? MKPolyline {
             let renderer = MKPolylineRenderer(polyline: routePolyline)
-            renderer.strokeColor = UIColor.red
+            renderer.strokeColor = UIColor.blue
             renderer.lineWidth = 5
+            
             return renderer
         }
         return MKOverlayRenderer()

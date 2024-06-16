@@ -18,11 +18,9 @@ class PostViewController: UIViewController {
     @IBOutlet weak var commentTextField: UITextField!
     @IBOutlet weak var imageViewPic: UIImageView!
     
-    var homeViewController = HomeViewController()
+    var isShowKeyboard = false
     var location = Firestore.firestore().collection("posts")
-//    var postID = 1011
     var currentUser = Auth.auth().currentUser?.displayName
-    var dbFirebase: DbFirebase?
     
     var departGeo: GeoPoint?
     var arriveGeo: GeoPoint?
@@ -30,8 +28,15 @@ class PostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let viewTapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(viewTapGesture)
+        
         let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(choosePic))
         imageViewPic.addGestureRecognizer(imageTapGesture)
+    }
+    
+    @objc func dismissKeyboard(sender: UITapGestureRecognizer) {
+        view.endEditing(true)
     }
     
     @IBAction func goToMapPressed(_ sender: UIButton) {
@@ -68,7 +73,7 @@ class PostViewController: UIViewController {
         titleTextField.text = ""
         commentTextField.text = ""
         imageViewPic.image = nil
-        imageViewPic.backgroundColor = .systemMint
+        imageViewPic.backgroundColor = .systemGray3
         resLabel.text = ""
         departGeo = nil
         arriveGeo = nil
@@ -77,17 +82,16 @@ class PostViewController: UIViewController {
     func uploadPost() { // firebase에 글 등록 함수
         guard let title = titleTextField.text, title.isEmpty == false else { return }
         guard let comment = commentTextField.text, comment.isEmpty == false else { return }
-        var id = homeViewController.posts.count
         
         let currentDate = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy.MM.dd a hh:mm"
         let time = dateFormatter.string(from: currentDate)
         
-        let post = Post(id: id, user: currentUser!, time: time, title: title, comment: comment, depart: departGeo!, arrive: arriveGeo!)
-        
-//        homeViewController.dbFirebase?.saveChange(key: String(id), object: Post.toDict(post: post), action: .add)
+        let post = Post(user: currentUser!, time: time, title: title, comment: comment, depart: departGeo!, arrive: arriveGeo!)
+
         location.document(time).setData(Post.toDict(post: post))
+        
         uploadImage(imageName: title + " image", image: imageViewPic.image!)
     }
     
@@ -108,7 +112,6 @@ extension PostViewController: UINavigationControllerDelegate, UIImagePickerContr
         
         imageViewPic.image = image
         imageViewPic.backgroundColor = .clear
-        
         picker.dismiss(animated: true, completion: nil)
     }
     
@@ -128,5 +131,24 @@ extension PostViewController: SendCoordinate {
         // GeoPoint를 CLLocationCoordinate2D로 변환
         departGeo = convertCoordinate(coord: depart)
         arriveGeo = convertCoordinate(coord: arrive)
+    }
+}
+
+extension PostViewController {
+    override func viewDidAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: OperationQueue.main) { notification in
+            if self.isShowKeyboard == false {
+                self.isShowKeyboard = true
+            }
+        }
+        
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: OperationQueue.main) { notification in
+            self.isShowKeyboard = false
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 }

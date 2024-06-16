@@ -88,12 +88,12 @@ class Map {
         // 중심 좌표 설정 (서울)
         let centerCoordinate = CLLocationCoordinate2D(latitude: 37.5665, longitude: 126.9780)
         
-        // 축척 비율 설정: latitudeDelta와 longitudeDelta 값이 작을수록 확대, 값이 클수록 축소
+        // 축척 비율 설정
         let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
         // 지도 영역 설정
         let region = MKCoordinateRegion(center: centerCoordinate, span: span)
         
-        // mapView에 설정한 region을 적용
+        // mapView에 설정한 region 적용
         map.setRegion(region, animated: true)
     }
 }

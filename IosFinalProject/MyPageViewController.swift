@@ -10,12 +10,22 @@ import FirebaseAuth
 
 class MyPageViewController: UIViewController {
 
+    @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var userInfoLabel: UILabel!
+    
+    var user = Auth.auth().currentUser
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let userName = Auth.auth().currentUser?.displayName
+        infoShow()
+    }
+    
+    func infoShow() {
+        let userName = user?.displayName
         userInfoLabel.text = "\(userName!)님, 환영합니다!"
+        
+        let emailAddress = user?.email
+        emailLabel.text = emailAddress
     }
     
     @IBAction func logOutClicked(_ sender: UIButton) {
