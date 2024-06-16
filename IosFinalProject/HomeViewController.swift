@@ -78,24 +78,6 @@ extension HomeViewController: UITableViewDataSource {
                     cell.imageViewCell.image = image
                 }
             }
-//            downloadImage(imageName: imageName) { [weak self] image in
-//                guard let self = self else { return }
-//                
-//                if let image = image { // 이미지 다운로드 성공 시, 셀에 이미지 설정
-//                    self.imagePool[imageName] = image
-//                    DispatchQueue.main.async {
-//                        if let visibleCells = tableView.visibleCells as? [PostTableViewCell], visibleCells.contains(table) {
-//                            table.imageViewCell.image = image
-//                        }
-//                    }
-//                } 
-//                else {
-                    // 이미지 다운로드 실패 시 처리 (예: 기본 이미지 설정 등)
-//                    DispatchQueue.main.async {
-//                        table.imageViewCell.image = UIImage(named: "default_image")
-//                    }
-//                }
-//            }
         }
         
         return table

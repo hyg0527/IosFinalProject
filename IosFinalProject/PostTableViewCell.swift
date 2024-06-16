@@ -22,8 +22,7 @@ class PostTableViewCell: UITableViewCell {
         contentView.addSubview(imageViewCell)
         contentView.addSubview(userName)
         contentView.addSubview(time)
-        
-//        contentView.backgroundColor = .lightGray
+
         contentView.layer.cornerRadius = 30
         contentView.clipsToBounds = true
         
@@ -37,7 +36,6 @@ class PostTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             title.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-//            title.trailingAnchor.constraint(equalTo: userName.leadingAnchor, constant: -20),
             
             userName.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 20),
             userName.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
