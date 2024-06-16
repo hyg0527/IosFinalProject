@@ -60,7 +60,7 @@ class PostDetailViewController: UIViewController {
             if let distance = distance {
                 self.distanceLabel.text = "거리: \(distance)m"
             } else {
-                print("Failed to calculate route distance")
+                print("거리 계산 오류")
             }
         }
     }
