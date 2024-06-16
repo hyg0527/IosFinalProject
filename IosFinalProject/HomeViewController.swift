@@ -34,7 +34,7 @@ class HomeViewController: UIViewController {
         db.order(by: "time", descending: true)
             .getDocuments { (querySnapshot, error) in
             if let error = error {
-                print("document 가져오기 실패: \(error)")
+                print("Error getting documents: \(error)")
             }
             else {
                 self.posts = querySnapshot?.documents.compactMap { document -> Post? in

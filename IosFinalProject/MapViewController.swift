@@ -76,9 +76,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         }
         mapInstance.calculateRoute(mapView: mapView, from: depart!, to: arrive!) { distance in
             if let distance = distance {
-                    print("거리: \(distance)m")
+                    print("Calculated distance: \(distance) meters")
                 } else {
-                    print("거리 계산 오류")
+                    print("Failed to calculate route distance")
                 }
         }
         routeBtn.isEnabled = false
