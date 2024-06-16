@@ -28,6 +28,7 @@
 		26D184D72C1BC85A00B08028 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D184D62C1BC85A00B08028 /* MapViewController.swift */; };
 		26D184D92C1BC87300B08028 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D184D82C1BC87300B08028 /* PostDetailViewController.swift */; };
 		26D184DB2C1C0B8700B08028 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D184DA2C1C0B8700B08028 /* Image.swift */; };
+		26D184DD2C1E847000B08028 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D184DC2C1E847000B08028 /* Map.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 		26D184D62C1BC85A00B08028 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		26D184D82C1BC87300B08028 /* PostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 		26D184DA2C1C0B8700B08028 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		26D184DC2C1E847000B08028 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				26D184D22C1B055A00B08028 /* PostTableViewCell.swift */,
 				26D184D42C1B138700B08028 /* Post.swift */,
 				26D184DA2C1C0B8700B08028 /* Image.swift */,
+				26D184DC2C1E847000B08028 /* Map.swift */,
 			);
 			path = IosFinalProject;
 			sourceTree = "<group>";
@@ -207,6 +210,7 @@
 				26D184DB2C1C0B8700B08028 /* Image.swift in Sources */,
 				26D184A32C0DD80100B08028 /* AppDelegate.swift in Sources */,
 				26D184D72C1BC85A00B08028 /* MapViewController.swift in Sources */,
+				26D184DD2C1E847000B08028 /* Map.swift in Sources */,
 				26D184A52C0DD80100B08028 /* SceneDelegate.swift in Sources */,
 				26D184D32C1B055A00B08028 /* PostTableViewCell.swift in Sources */,
 				26D184CF2C1AC43700B08028 /* Database.swift in Sources */,

@@ -18,6 +18,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var routeBtn: UIButton!
     @IBOutlet weak var mapView: MKMapView!
     
+    var mapInstance = Map()
     var locationManager: CLLocationManager!
     var annotations: [MKPointAnnotation] = []
     
@@ -41,7 +42,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
 
-        resizeMap()
+        mapInstance.resizeMap(map: mapView)
         
         let mapTapGesture = UITapGestureRecognizer(target: self, action: #selector(placeMarker))
         mapView.addGestureRecognizer(mapTapGesture)
@@ -60,77 +61,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         }
         
         if tappedAnnotations.isEmpty { // 마커 추가
-            addMarker(at: coordinate)
+            annotations = mapInstance.addMarker(array: annotations, mapView: mapView, at: coordinate)
         }
-    }
-    
-    func addMarker(at coordinate: CLLocationCoordinate2D) {
-        if annotations.count >= 2 { return } // 최대 두 개의 마커만 추가
-        
-        // 마커 제목 설정
-        let title: String
-        if annotations.isEmpty {
-            title = "출발지"
-        } else {
-            title = "도착지"
-        }
-
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = coordinate
-        annotation.title = title
-        
-        mapView.addAnnotation(annotation)
-        mapView.deselectAnnotation(annotation, animated: false) // 선택 상태 해제
-        annotations.append(annotation) // 배열에 추가
-    }
-    
-    func calculateRoute(from source: CLLocationCoordinate2D, to destination: CLLocationCoordinate2D) {
-        let sourcePlacemark = MKPlacemark(coordinate: source)
-        let destinationPlacemark = MKPlacemark(coordinate: destination)
-        
-        let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
-        let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
-        
-        let directionRequest = MKDirections.Request()
-        directionRequest.source = sourceMapItem
-        directionRequest.destination = destinationMapItem
-        directionRequest.transportType = .walking
-        
-        let directions = MKDirections(request: directionRequest)
-        directions.calculate { (response, error) in
-            guard let response = response else {
-                if let error = error {
-                    print("Error: \(error)")
-                }
-                return
-            }
-            
-            // 첫 번째 경로 가져오기
-            let route = response.routes[0]
-            self.mapView.addOverlay(route.polyline, level: .aboveRoads)
-            
-            // 경로의 길이
-            let distance = route.distance
-            print("Distance: \(distance) meters")
-            
-            // 경로 시각화를 위해 지도 영역 조정
-            var rect = route.polyline.boundingMapRect
-            rect = self.mapView.mapRectThatFits(rect, edgePadding: UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20))
-            self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
-        }
-    }
-    
-    func resizeMap() {
-        // 중심 좌표 설정 (서울)
-        let centerCoordinate = CLLocationCoordinate2D(latitude: 37.5665, longitude: 126.9780)
-        
-        // 축척 비율 설정: latitudeDelta와 longitudeDelta 값이 작을수록 확대, 값이 클수록 축소
-        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-        // 지도 영역 설정
-        let region = MKCoordinateRegion(center: centerCoordinate, span: span)
-        
-        // mapView에 설정한 region을 적용
-        mapView.setRegion(region, animated: true)
     }
     
     @IBAction func setRoute(_ sender: UIButton) {
@@ -142,7 +74,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
                 arrive = annotation.coordinate
             }
         }
-        calculateRoute(from: depart!, to: arrive!)
+        mapInstance.calculateRoute(mapView: mapView, from: depart!, to: arrive!) { distance in
+            if let distance = distance {
+                    print("Calculated distance: \(distance) meters")
+                } else {
+                    print("Failed to calculate route distance")
+                }
+        }
         routeBtn.isEnabled = false
     }
     
